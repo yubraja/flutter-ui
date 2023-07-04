@@ -5,13 +5,16 @@ class GroceryItemTile extends StatelessWidget {
   final double itemPrice;
   final String imagePath;
   final color;
+  void Function()? addToCart;
 
-  GroceryItemTile(
-      {super.key,
-      required this.itemName,
-      required this.itemPrice,
-      required this.imagePath,
-      required this.color});
+  GroceryItemTile({
+    super.key,
+    required this.itemName,
+    required this.itemPrice,
+    required this.imagePath,
+    required this.color,
+    required this.addToCart,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -23,16 +26,15 @@ class GroceryItemTile extends StatelessWidget {
             color: color[100], borderRadius: BorderRadius.circular(12)),
 
         //image
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
+        child:
+            Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
           Image.asset(
             imagePath,
             height: 70,
           ),
           Text(itemName),
           MaterialButton(
-            onPressed: () {},
+            onPressed: addToCart,
             child: Text(
               'Rs ' + itemPrice.toString(),
               style:

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../components/grocery_item_tile.dart';
 import 'package:provider/provider.dart';
+import './cart_page.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -10,6 +11,15 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => Navigator.of(context)
+            .push(MaterialPageRoute(builder: (context){
+
+              return CartPage();
+
+            },)),
+        child: Icon(Icons.shopping_bag),
+      ),
       body: SafeArea(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -55,33 +65,24 @@ class HomePage extends StatelessWidget {
               ),
             ),
 
-            Expanded(
-                child: Consumer<CartItemModel>(
-
-                  builder: (context,value,child){
-
-                    return    GridView.builder(
-                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2),
-                      itemCount: value.shopItems.length,
-                      itemBuilder: (context,index){
-                        return GroceryItemTile(
-                          itemName: value.shopItems[index][0],
-                          itemPrice: value.shopItems[index][1],
-                          imagePath: value.shopItems[index][2],
-                          color: value.shopItems[index][3],
-
-
-                        );
-                
-                      });
-
+            Expanded(child: Consumer<CartItemModel>(
+              builder: (context, value, child) {
+                return GridView.builder(
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      childAspectRatio: 1 / 1.3, crossAxisCount: 2),
+                  itemCount: value.shopItems.length,
+                  itemBuilder: (context, index) {
+                    return GroceryItemTile(
+                      itemName: value.shopItems[index][0],
+                      itemPrice: value.shopItems[index][1],
+                      imagePath: value.shopItems[index][2],
+                      color: value.shopItems[index][3],
+                      addToCart: () =>Provider.of<CartItemModel>(context,listen: false).addItemToCart(index,context),
+                    );
                   },
-                  
-
-
-                
-                ))
+                );
+              },
+            ))
           ],
         ),
       ),

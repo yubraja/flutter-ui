@@ -35,6 +35,11 @@ This repo contains all the UI that I tried to make using Flutter
 
 
 
+
+
+
+
+
    
    ![image](https://github.com/yubraja/flutter-ui/assets/93995733/2bbc1af5-fa4c-436a-9183-97152f855800)
 

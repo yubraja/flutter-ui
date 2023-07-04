@@ -4,13 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 class CartPage extends StatelessWidget {
-  var snackBar = SnackBar(
-  content: Text('Yay! A SnackBar!'),
-);
-
-// Find the ScaffoldMessenger in the widget tree
-// and use it to show a SnackBar.
-
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,12 +21,15 @@ class CartPage extends StatelessWidget {
       body: Consumer<CartItemModel>(
         builder: (context, value, child) {
           return Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
                 'My Cart',
                 style: GoogleFonts.notoSerif(
                     fontSize: 40, fontWeight: FontWeight.bold),
               ),
+              value.cartItems.isEmpty?Text('Empty cart!!',style: TextStyle(fontSize: 24),):
+
               Expanded(
                   child: ListView.builder(
                       itemCount: value.cartItems.length,
@@ -64,6 +61,7 @@ class CartPage extends StatelessWidget {
                           ),
                         );
                       })),
+                      
               Padding(
                 padding: const EdgeInsets.all(20.0),
                 child: Container(
@@ -93,7 +91,7 @@ class CartPage extends StatelessWidget {
                       ),
                       GestureDetector(
                         onTap: (){
-                          value.purchaseAll();
+                          value.purchaseAll(context);
                         },
                         child: Container(
                           decoration: BoxDecoration(border: Border.all(color: Colors.white),borderRadius: BorderRadius.circular(10)),
